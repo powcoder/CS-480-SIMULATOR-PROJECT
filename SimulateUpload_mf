@@ -1,0 +1,28 @@
+cc = gcc
+DEBUG = -g
+CFLAGS = -Wall -std=c99 -pedantic -c $(DEBUG)
+LFLAGS = -Wall -std=c99 -pedantic $(DEBUG)
+
+UploadFiles : SimulateDisMain.o MetaDataAccess.o StringUtils.o ConfigAccess.o Simulation.o Simtimer.o 
+	$(cc) $(LFLAGS) SimulateDisMain.o MetaDataAccess.o StringUtils.o ConfigAccess.o Simulation.o Simtimer.o -o UploadFiles -lpthread
+
+SimulateDisMain.o : SimulateDisMain.c
+	$(cc) $(CFLAGS) SimulateDisMain.c
+
+ConfigAccess.o : ConfigAccess.c ConfigAccess.h
+	$(cc) $(CFLAGS) ConfigAccess.c
+
+StringUtils.o : StringUtils.c StringUtils.h
+	$(cc) $(CFLAGS) StringUtils.c
+
+MetaDataAccess.o : MetaDataAccess.c MetaDataAccess.h
+	$(cc) $(CFLAGS) MetaDataAccess.c
+
+Simulation.o : Simulation.c Simulation.h
+	$(cc) $(CFLAGS) Simulation.c 
+
+Simtimer.o : Simtimer.c Simtimer.h
+	$(cc) $(CFLAGS) Simtimer.c 
+
+clean :
+	\rm *.o *.lgf UploadFiles
